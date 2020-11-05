@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function getTimeRemaining(endtime) {
         let t = Date.parse(endtime) - Date.parse(new Date()),
             days = Math.floor(t / (1000 * 60 * 60 * 24)),
-            hours = Math.floor((t / 1000 * 60 * 60) % 24),
+            hours = Math.floor(t / (1000 * 60 * 60) % 24),
             minutes = Math.floor((t / 1000 / 60) % 60),
             seconds = Math.floor((t / 1000) % 60);
 
@@ -136,7 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalTimerId = setTimeout(openModal, 5000);
 
     function showModalByScroll() {
-        if (Math.ceil(window.pageYOffset) + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
+        if (Math.ceil(window.pageYOffset) + document.documentElement.clientHeight >=
+            document.documentElement.scrollHeight) {
             openModal();
             window.removeEventListener('scroll', showModalByScroll);
         }
