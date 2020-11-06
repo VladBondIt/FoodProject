@@ -98,17 +98,18 @@ document.addEventListener('DOMContentLoaded', () => {
     //  MODAL !!!
 
     const modalTriggers = document.querySelectorAll('[data-modal]'),
-        modal = document.querySelector(".modal"),
-        modalCloseBtn = document.querySelector('[data-close]');
+        modal = document.querySelector(".modal");
 
     function closeModal() {
-        modal.classList.remove('active');
+        modal.classList.add('hide');
+        modal.classList.remove('show');
         document.body.style.overflow = '';
         // clearInterval(modalTimerId);
     }
 
     function openModal() {
-        modal.classList.add('active');
+        // modal.classList.add('show');
+        modal.classList.remove('hide');
         document.body.style.overflow = 'hidden';
     }
 
@@ -118,16 +119,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-    modalCloseBtn.addEventListener('click', closeModal);
-
     modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
+        if (e.target === modal || e.target.getAttribute('data-close') == "") {
             closeModal();
         }
     });
 
     document.addEventListener('keydown', (e) => {
-        if (e.code === 'Escape' && modal.matches('.active')) {
+        if (e.code === 'Escape' && modal.matches('.show')) {
             closeModal();
             // console.log('object');
         }
@@ -222,10 +221,12 @@ document.addEventListener('DOMContentLoaded', () => {
         'menu__item'
     ).render();
 
+    // AJAX
+
     const forms = document.querySelectorAll('form');
 
     const message = {
-        loading: 'Загрузка',
+        loading: 'icons/spinner.svg',
         success: 'Спасибо!Мы скоро с вами свяжемся',
         failure: 'Что-то пошло не так...'
     };
@@ -238,11 +239,14 @@ document.addEventListener('DOMContentLoaded', () => {
         form.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            const statusMessage = document.createElement('div');
-            statusMessage.classList.add('status');
-            statusMessage.textContent = message.loading;
-
+            const statusMessage = document.createElement('img');
+            statusMessage.src = message.loading;
+            statusMessage.style.cssText = `
+                display: block;
+                margin: 0 auto;
+            `;
             form.append(statusMessage);
+            form.insertAdjacentElement('afterend', statusMessage);
 
             const r = new XMLHttpRequest();
             r.open('POST', 'server.php');
@@ -269,18 +273,40 @@ document.addEventListener('DOMContentLoaded', () => {
             r.addEventListener('load', () => {
                 if (r.status === 200) {
                     console.log(r.response);
-                    statusMessage.textContent = message.success;
+                    showThanksModal(message.success);
                     form.reset();
-                    setTimeout(() => {
-                        statusMessage.remove();
-                    }, 2000);
+                    statusMessage.remove();
                 } else {
-                    statusMessage.textContent = message.failure;
+                    showThanksModal(message.failure);
                 }
             });
 
 
         });
+    }
+
+    function showThanksModal(message) {
+        const previusModalDialog = document.querySelector('.modal__dialog');
+
+        previusModalDialog.classList.add('hide');
+        openModal();
+
+        const thaksModal = document.createElement('div');
+        thaksModal.classList.add('modal__dialog');
+        thaksModal.innerHTML = `
+            <div class="modal__content">
+                <div class="modal__close" date-close>&times;</div>
+                <div class="modal__title">${message}</div>
+            </div>
+        `;
+
+        document.querySelector('.modal').append(thaksModal);
+        setTimeout(() => {
+            thaksModal.remove();
+            // previusModalDialog.classList.add('show');
+            previusModalDialog.classList.remove('hide');
+            closeModal();
+        }, 3000);
     }
 
 });

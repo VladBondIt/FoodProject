@@ -181,30 +181,30 @@ document.addEventListener('DOMContentLoaded', () => {
   setClock('.timer', deadline); //  MODAL !!!
 
   const modalTriggers = document.querySelectorAll('[data-modal]'),
-        modal = document.querySelector(".modal"),
-        modalCloseBtn = document.querySelector('[data-close]');
+        modal = document.querySelector(".modal");
 
   function closeModal() {
-    modal.classList.remove('active');
+    modal.classList.add('hide');
+    modal.classList.remove('show');
     document.body.style.overflow = ''; // clearInterval(modalTimerId);
   }
 
   function openModal() {
-    modal.classList.add('active');
+    // modal.classList.add('show');
+    modal.classList.remove('hide');
     document.body.style.overflow = 'hidden';
   }
 
   modalTriggers.forEach(trigger => {
     trigger.addEventListener('click', openModal);
   });
-  modalCloseBtn.addEventListener('click', closeModal);
   modal.addEventListener('click', e => {
-    if (e.target === modal) {
+    if (e.target === modal || e.target.getAttribute('data-close') == "") {
       closeModal();
     }
   });
   document.addEventListener('keydown', e => {
-    if (e.code === 'Escape' && modal.matches('.active')) {
+    if (e.code === 'Escape' && modal.matches('.show')) {
       closeModal(); // console.log('object');
     }
   }); // const modalTimerId = setTimeout(openModal, 5000);
@@ -266,10 +266,11 @@ document.addEventListener('DOMContentLoaded', () => {
         в ресторан!`, 14, '.menu__field .container', 'menu__item').render();
   new MenuCard(`"img/tabs/post.jpg"`, `"post"`, `Меню "Постное"`, `Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие
         продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное
-        количество белков за счет тофу и импортных вегетарианских стейков. `, 21, '.menu__field .container', 'menu__item').render();
+        количество белков за счет тофу и импортных вегетарианских стейков. `, 21, '.menu__field .container', 'menu__item').render(); // AJAX
+
   const forms = document.querySelectorAll('form');
   const message = {
-    loading: 'Загрузка',
+    loading: 'icons/spinner.svg',
     success: 'Спасибо!Мы скоро с вами свяжемся',
     failure: 'Что-то пошло не так...'
   };
@@ -280,10 +281,14 @@ document.addEventListener('DOMContentLoaded', () => {
   function postData(form) {
     form.addEventListener('submit', e => {
       e.preventDefault();
-      const statusMessage = document.createElement('div');
-      statusMessage.classList.add('status');
-      statusMessage.textContent = message.loading;
+      const statusMessage = document.createElement('img');
+      statusMessage.src = message.loading;
+      statusMessage.style.cssText = `
+                display: block;
+                margin: 0 auto;
+            `;
       form.append(statusMessage);
+      form.insertAdjacentElement('afterend', statusMessage);
       const r = new XMLHttpRequest();
       r.open('POST', 'server.php'); //При использовании XMLHttpRequest и FormData Заголовок устанавливать ненадо
       // r.setRequestHeader('Content-type', 'multipart/form-data');
@@ -304,16 +309,35 @@ document.addEventListener('DOMContentLoaded', () => {
       r.addEventListener('load', () => {
         if (r.status === 200) {
           console.log(r.response);
-          statusMessage.textContent = message.success;
+          showThanksModal(message.success);
           form.reset();
-          setTimeout(() => {
-            statusMessage.remove();
-          }, 2000);
+          statusMessage.remove();
         } else {
-          statusMessage.textContent = message.failure;
+          showThanksModal(message.failure);
         }
       });
     });
+  }
+
+  function showThanksModal(message) {
+    const previusModalDialog = document.querySelector('.modal__dialog');
+    previusModalDialog.classList.add('hide');
+    openModal();
+    const thaksModal = document.createElement('div');
+    thaksModal.classList.add('modal__dialog');
+    thaksModal.innerHTML = `
+            <div class="modal__content">
+                <div class="modal__close" date-close>&times;</div>
+                <div class="modal__title">${message}</div>
+            </div>
+        `;
+    document.querySelector('.modal').append(thaksModal);
+    setTimeout(() => {
+      thaksModal.remove(); // previusModalDialog.classList.add('show');
+
+      previusModalDialog.classList.remove('hide');
+      closeModal();
+    }, 3000);
   }
 });
 
