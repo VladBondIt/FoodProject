@@ -222,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'menu__item'
     ).render();
 
-    const forms = document.querySelectorAll('.form');
+    const forms = document.querySelectorAll('form');
 
     const message = {
         loading: 'Загрузка',

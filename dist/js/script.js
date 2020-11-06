@@ -267,7 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
   new MenuCard(`"img/tabs/post.jpg"`, `"post"`, `Меню "Постное"`, `Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие
         продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное
         количество белков за счет тофу и импортных вегетарианских стейков. `, 21, '.menu__field .container', 'menu__item').render();
-  const forms = document.querySelectorAll('.form');
+  const forms = document.querySelectorAll('form');
   const message = {
     loading: 'Загрузка',
     success: 'Спасибо!Мы скоро с вами свяжемся',
