@@ -285,16 +285,30 @@ document.addEventListener('DOMContentLoaded', () => {
       statusMessage.textContent = message.loading;
       form.append(statusMessage);
       const r = new XMLHttpRequest();
-      r.open('POST', 'server.php'); // FormData создает данные формата key:value
+      r.open('POST', 'server.php'); //При использовании XMLHttpRequest и FormData Заголовок устанавливать ненадо
+      // r.setRequestHeader('Content-type', 'multipart/form-data');
+      // Для JSON формата
+
+      r.setRequestHeader('Content-type', 'application/json'); // FormData создает данные формата key:value
       // Нужно всегда проверять атрибут name у инпутов, без нейма работать не будет.
 
-      r.setRequestHeader('Content-type', 'multipart/form-data');
       const formData = new FormData(form);
-      r.send(formData);
+      const obj = {};
+      formData.forEach(function (key, value) {
+        obj[key] = value;
+      });
+      const json = JSON.stringify(obj); // r.send(formData);
+      // Формат JSON
+
+      r.send(json);
       r.addEventListener('load', () => {
         if (r.status === 200) {
           console.log(r.response);
           statusMessage.textContent = message.success;
+          form.reset();
+          setTimeout(() => {
+            statusMessage.remove();
+          }, 2000);
         } else {
           statusMessage.textContent = message.failure;
         }
