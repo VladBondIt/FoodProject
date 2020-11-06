@@ -267,6 +267,40 @@ document.addEventListener('DOMContentLoaded', () => {
   new MenuCard(`"img/tabs/post.jpg"`, `"post"`, `Меню "Постное"`, `Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие
         продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное
         количество белков за счет тофу и импортных вегетарианских стейков. `, 21, '.menu__field .container', 'menu__item').render();
+  const forms = document.querySelectorAll('.form');
+  const message = {
+    loading: 'Загрузка',
+    success: 'Спасибо!Мы скоро с вами свяжемся',
+    failure: 'Что-то пошло не так...'
+  };
+  forms.forEach(item => {
+    postData(item);
+  });
+
+  function postData(form) {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const statusMessage = document.createElement('div');
+      statusMessage.classList.add('status');
+      statusMessage.textContent = message.loading;
+      form.append(statusMessage);
+      const r = new XMLHttpRequest();
+      r.open('POST', 'server.php'); // FormData создает данные формата key:value
+      // Нужно всегда проверять атрибут name у инпутов, без нейма работать не будет.
+
+      r.setRequestHeader('Content-type', 'multipart/form-data');
+      const formData = new FormData(form);
+      r.send(formData);
+      r.addEventListener('load', () => {
+        if (r.status === 200) {
+          console.log(r.response);
+          statusMessage.textContent = message.success;
+        } else {
+          statusMessage.textContent = message.failure;
+        }
+      });
+    });
+  }
 });
 
 /***/ })
