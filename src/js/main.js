@@ -258,9 +258,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const obj = {};
             formData.forEach(function (key, value) {
                 obj[key] = value;
-            })
+            });
 
-            const json = JSON.stringify(obj)
+            const json = JSON.stringify(obj);
 
             // r.send(formData);
             // Формат JSON
