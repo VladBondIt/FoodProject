@@ -197,15 +197,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   modalTriggers.forEach(trigger => {
     trigger.addEventListener('click', openModal);
-  });
+  }); // Проделигировали событие на ново-созданный дочерний крестик.
+
   modal.addEventListener('click', e => {
     if (e.target === modal || e.target.getAttribute('data-close') == "") {
       closeModal();
     }
   });
   document.addEventListener('keydown', e => {
-    if (e.code === 'Escape' && modal.matches('.show')) {
-      closeModal(); // console.log('object');
+    if (e.code === 'Escape') {
+      closeModal();
     }
   }); // const modalTimerId = setTimeout(openModal, 5000);
 
@@ -327,7 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
     thaksModal.classList.add('modal__dialog');
     thaksModal.innerHTML = `
             <div class="modal__content">
-                <div class="modal__close" date-close>&times;</div>
+                <div class="modal__close" data-close>&times;</div>
                 <div class="modal__title">${message}</div>
             </div>
         `;

@@ -95,7 +95,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setClock('.timer', deadline);
 
+
     //  MODAL !!!
+
 
     const modalTriggers = document.querySelectorAll('[data-modal]'),
         modal = document.querySelector(".modal");
@@ -118,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-
+    // Проделигировали событие на ново-созданный дочерний крестик.
     modal.addEventListener('click', (e) => {
         if (e.target === modal || e.target.getAttribute('data-close') == "") {
             closeModal();
@@ -126,9 +128,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.addEventListener('keydown', (e) => {
-        if (e.code === 'Escape' && modal.matches('.show')) {
+        if (e.code === 'Escape') {
             closeModal();
-            // console.log('object');
         }
     });
 
@@ -295,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
         thaksModal.classList.add('modal__dialog');
         thaksModal.innerHTML = `
             <div class="modal__content">
-                <div class="modal__close" date-close>&times;</div>
+                <div class="modal__close" data-close>&times;</div>
                 <div class="modal__title">${message}</div>
             </div>
         `;
