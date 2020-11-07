@@ -191,7 +191,8 @@ document.addEventListener('DOMContentLoaded', () => {
         `"vegy"`,
         `Меню "Фитнес"`,
         `Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих
-        овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной
+        овощей и фруктов. Продукт активных и здоровых людей. 
+        Это абсолютно новый продукт с оптимальной
         ценой и высоким качеством!`,
         9,
         '.menu__field .container',
@@ -203,7 +204,8 @@ document.addEventListener('DOMContentLoaded', () => {
         `"elite"`,
         `Меню “Премиум”`,
         `В меню “Премиум” мы используем не только красивый дизайн упаковки, но
-        и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода
+        и качественное исполнение блюд. Красная рыба,
+         морепродукты, фрукты - ресторанное меню без похода
         в ресторан!`,
         14,
         '.menu__field .container',
@@ -215,7 +217,8 @@ document.addEventListener('DOMContentLoaded', () => {
         `"post"`,
         `Меню "Постное"`,
         `Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие
-        продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное
+        продуктов животного происхождения, молоко из миндаля,
+         овса, кокоса или гречки, правильное
         количество белков за счет тофу и импортных вегетарианских стейков. `,
         21,
         '.menu__field .container',
@@ -249,15 +252,9 @@ document.addEventListener('DOMContentLoaded', () => {
             form.append(statusMessage);
             form.insertAdjacentElement('afterend', statusMessage);
 
-            const r = new XMLHttpRequest();
-            r.open('POST', 'server.php');
-            //При использовании XMLHttpRequest и FormData Заголовок устанавливать ненадо
-            // r.setRequestHeader('Content-type', 'multipart/form-data');
-            // Для JSON формата
-            r.setRequestHeader('Content-type', 'application/json');
-
             // FormData создает данные формата key:value
             // Нужно всегда проверять атрибут name у инпутов, без нейма работать не будет.
+            // Трансформацяи FormData в JSON формат.
             const formData = new FormData(form);
 
             const obj = {};
@@ -265,24 +262,39 @@ document.addEventListener('DOMContentLoaded', () => {
                 obj[key] = value;
             });
 
-            const json = JSON.stringify(obj);
+            // const json = JSON.stringify(obj);
 
-            // r.send(formData);
-            // Формат JSON
-            r.send(json);
-
-            r.addEventListener('load', () => {
-                if (r.status === 200) {
-                    console.log(r.response);
+            // Fetch POST через FormData
+            // Promise который запускается при помощи fetch`a не перейдет в состаяние
+            // отклонено-rejected из-за ответа HTTP протокола который считается ошибкой,
+            // он всеравно выполнится нормально меняется только свойство status 
+            // которое перейдет в значение false, reject будет возницать,
+            // только при сбое сети или падении сервера.
+            fetch('server.php', {
+                method: "POST",
+                // headers: {
+                //     'Content-type': 'application/json'
+                // },
+                // Отправляем данные в формате FormData
+                // body: formData
+                // Отправляем данные в формате JSON
+                body: JSON.stringify(obj)
+                // Data данные которые вернет сервер после поста
+                // преобразовываем ответ в текст методом фетча
+            }).then(data => data.text())
+                .then(data => {
+                    console.log(data);
                     showThanksModal(message.success);
                     form.reset();
                     statusMessage.remove();
-                } else {
+                })
+                .catch(() => {
                     showThanksModal(message.failure);
-                }
-            });
-
-
+                    form.reset();
+                });
+            // .finally(() => {
+            //     form.reset();
+            // });
         });
     }
 
