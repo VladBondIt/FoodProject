@@ -342,7 +342,7 @@ a {
   .menu .container {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: stretch;
     flex-wrap: wrap; }
   .menu .title {
     text-align: center; }
@@ -358,7 +358,8 @@ a {
     font-weight: 300;
     display: flex;
     flex-direction: column;
-    flex: 0 1 27%; }
+    flex: 0 1 27%;
+    margin-bottom: 3%; }
     .menu__item img {
       width: 100%;
       height: 200px;
