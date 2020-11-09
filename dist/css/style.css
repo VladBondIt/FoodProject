@@ -336,7 +336,7 @@ a {
     width: 490px;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center; }
   .calculating__result {
     font-size: 18px;

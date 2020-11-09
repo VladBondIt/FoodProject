@@ -553,11 +553,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (sex === 'female') {
       res.innerHTML = `
-                <span>${(447.6 + 9.2 * weight + 3.1 * height - 4.3 * age) * ratio}</span>ккал
+                <span>${((447.6 + 9.2 * weight + 3.1 * height - 4.3 * age) * ratio).toFixed(0)}</span>ккал
             `;
     } else {
       res.innerHTML = `
-                <span>${(88.36 + 13.4 * weight + 4.8 * height - 5.7 * age) * ratio}</span>ккал
+                <span>${((88.36 + 13.4 * weight + 4.8 * height - 5.7 * age) * ratio).toFixed(0)}</span>ккал
             `;
     }
   }
@@ -578,8 +578,8 @@ document.addEventListener('DOMContentLoaded', () => {
         elem.classList.remove(activeClass);
       });
       e.target.classList.add(activeClass);
+      calcTotal();
     });
-    calcTotal();
   }
 
   getStaticInfo('#gender', 'calculating__choose-item_active');
@@ -601,8 +601,9 @@ document.addEventListener('DOMContentLoaded', () => {
           age = +input.value;
           break;
       }
+
+      calcTotal();
     });
-    calcTotal();
   }
 
   getDinamicInfo('#height');
