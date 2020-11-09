@@ -453,7 +453,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // `;
   // Вставляем ордеред лист в блок слайдер.
 
-  slider.append(dots); // Запускаем цикл основанный на кол-ве слайдов, на каждой итерации создаем элемент ордеред листа 'li'
+  slider.append(dots); // const widthReplased = +width.replace(/\D/gi, '');
+  // Запускаем цикл основанный на кол-ве слайдов, на каждой итерации создаем элемент ордеред листа 'li'
 
   for (let i = 0; i < slides.length; i++) {
     const dot = document.createElement('li'); // Устанавливаем Лишкам атрибут, и прибавляем единицу что бы счет начинался с 1, а не 0
