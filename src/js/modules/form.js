@@ -1,3 +1,5 @@
+import { closeModal, openModal } from './modal';
+
 function form() {
     const forms = document.querySelectorAll('form');
 
@@ -94,7 +96,7 @@ function form() {
         const previusModalDialog = document.querySelector('.modal__dialog');
 
         previusModalDialog.classList.add('hide');
-        openModal();
+        openModal('.modal');
 
         const thaksModal = document.createElement('div');
         thaksModal.classList.add('modal__dialog');
@@ -110,10 +112,10 @@ function form() {
             thaksModal.remove();
             // previusModalDialog.classList.add('show');
             previusModalDialog.classList.remove('hide');
-            closeModal();
+            closeModal('.modal');
         }, 3000);
     }
 
 }
 
-module.exports = form;
+export default form;
