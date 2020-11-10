@@ -1,6 +1,6 @@
 import { closeModal, openModal } from './modal';
 
-function form() {
+function form(modalTimerId) {
     const forms = document.querySelectorAll('form');
 
     const message = {
@@ -96,7 +96,7 @@ function form() {
         const previusModalDialog = document.querySelector('.modal__dialog');
 
         previusModalDialog.classList.add('hide');
-        openModal('.modal');
+        openModal('.modal', modalTimerId);
 
         const thaksModal = document.createElement('div');
         thaksModal.classList.add('modal__dialog');

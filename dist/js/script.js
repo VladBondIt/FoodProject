@@ -113,13 +113,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  const modalTimerId = setTimeout(() => Object(_modules_modal__WEBPACK_IMPORTED_MODULE_1__["openModal"])('.modal', modalTimerId), 50000);
+  const modalTimerId = setTimeout(() => Object(_modules_modal__WEBPACK_IMPORTED_MODULE_1__["openModal"])('.modal', modalTimerId), 5000);
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_0__["default"])();
   Object(_modules_modal__WEBPACK_IMPORTED_MODULE_1__["default"])('[data-modal]', '.modal', modalTimerId);
   Object(_modules_timer__WEBPACK_IMPORTED_MODULE_2__["default"])();
   Object(_modules_cards__WEBPACK_IMPORTED_MODULE_3__["default"])();
   Object(_modules_calculator__WEBPACK_IMPORTED_MODULE_4__["default"])();
-  Object(_modules_form__WEBPACK_IMPORTED_MODULE_5__["default"])();
+  Object(_modules_form__WEBPACK_IMPORTED_MODULE_5__["default"])(modalTimerId);
   Object(_modules_slider__WEBPACK_IMPORTED_MODULE_6__["default"])();
 });
 
@@ -371,7 +371,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modal */ "./src/js/modules/modal.js");
 
 
-function form() {
+function form(modalTimerId) {
   const forms = document.querySelectorAll('form');
   const message = {
     loading: 'icons/spinner.svg',
@@ -452,7 +452,7 @@ function form() {
   function showThanksModal(message) {
     const previusModalDialog = document.querySelector('.modal__dialog');
     previusModalDialog.classList.add('hide');
-    Object(_modal__WEBPACK_IMPORTED_MODULE_0__["openModal"])('.modal');
+    Object(_modal__WEBPACK_IMPORTED_MODULE_0__["openModal"])('.modal', modalTimerId);
     const thaksModal = document.createElement('div');
     thaksModal.classList.add('modal__dialog');
     thaksModal.innerHTML = `

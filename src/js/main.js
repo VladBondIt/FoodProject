@@ -11,13 +11,13 @@ import { openModal } from './modules/modal';
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    const modalTimerId = setTimeout(() => openModal('.modal', modalTimerId), 50000);
+    const modalTimerId = setTimeout(() => openModal('.modal', modalTimerId), 5000);
     tabs();
     modal('[data-modal]', '.modal', modalTimerId);
     timer();
     cards();
     calculator();
-    form();
+    form(modalTimerId);
     slider();
 
 });
