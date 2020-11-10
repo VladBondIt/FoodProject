@@ -1,7 +1,8 @@
 import { closeModal, openModal } from './modal';
+import { postData } from '../services/services';
 
-function form(modalTimerId) {
-    const forms = document.querySelectorAll('form');
+function form(formSelector, modalTimerId) {
+    const forms = document.querySelectorAll(formSelector);
 
     const message = {
         loading: 'icons/spinner.svg',
@@ -13,20 +14,7 @@ function form(modalTimerId) {
         bindPostData(item);
     });
 
-    const postData = async (url, data) => {
-        // Async-await, синхронизирует присвоение result, перед тем как его вернет функция
-        // вплоть до 30 секунд
-        const result = await fetch(url, {
-            method: "POST",
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: data
-        });
 
-        return await result.json();
-
-    };
 
     function bindPostData(form) {
         form.addEventListener('submit', (e) => {

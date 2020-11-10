@@ -11,13 +11,22 @@ import { openModal } from './modules/modal';
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    const modalTimerId = setTimeout(() => openModal('.modal', modalTimerId), 5000);
-    tabs();
+    const modalTimerId = setTimeout(() => openModal('.modal', modalTimerId), 50000);
+    tabs('.tabheader__item', '.tabcontent', '.tabcontainer', 'tabheader__item_active');
     modal('[data-modal]', '.modal', modalTimerId);
-    timer();
+    timer('.timer', '2020-11-15');
     cards();
     calculator();
-    form(modalTimerId);
-    slider();
+    form('form', modalTimerId);
+    slider({
+        container: '.offer__slider',
+        nextArrow: '.offer__slider-next',
+        prevArrow: '.offer__slider-prev',
+        totalCounter: '#total',
+        currentCounter: '#current',
+        slide: '.offer__slide',
+        wrapper: '.offer__slider-wrapper',
+        field: '.offer__slider-inner'
+    });
 
 });
