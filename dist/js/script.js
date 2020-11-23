@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalTimerId = setTimeout(() => Object(_modules_modal__WEBPACK_IMPORTED_MODULE_1__["openModal"])('.modal', modalTimerId), 50000);
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_0__["default"])('.tabheader__item', '.tabcontent', '.tabcontainer', 'tabheader__item_active');
   Object(_modules_modal__WEBPACK_IMPORTED_MODULE_1__["default"])('[data-modal]', '.modal', modalTimerId);
-  Object(_modules_timer__WEBPACK_IMPORTED_MODULE_2__["default"])('.timer', '2020-11-15');
+  Object(_modules_timer__WEBPACK_IMPORTED_MODULE_2__["default"])('.timer', '2021-02-15');
   Object(_modules_cards__WEBPACK_IMPORTED_MODULE_3__["default"])();
   Object(_modules_calculator__WEBPACK_IMPORTED_MODULE_4__["default"])();
   Object(_modules_form__WEBPACK_IMPORTED_MODULE_5__["default"])('form', modalTimerId);
@@ -406,7 +406,7 @@ function form(formSelector, modalTimerId) {
       // Promise который запускается при помощи fetch`a не перейдет в состаяние
       // отклонено-rejected из-за ответа HTTP протокола который считается ошибкой,
       // он всеравно выполнится нормально меняется только свойство status 
-      // которое перейдет в значение false, reject будет возницать,
+      // которое перейдет в значение false, reject будет возникать,
       // только при сбое сети или падении сервера.
       // fetch('server.php', {
       //     method: "POST",

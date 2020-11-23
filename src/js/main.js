@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalTimerId = setTimeout(() => openModal('.modal', modalTimerId), 50000);
     tabs('.tabheader__item', '.tabcontent', '.tabcontainer', 'tabheader__item_active');
     modal('[data-modal]', '.modal', modalTimerId);
-    timer('.timer', '2020-11-15');
+    timer('.timer', '2021-02-15');
     cards();
     calculator();
     form('form', modalTimerId);
