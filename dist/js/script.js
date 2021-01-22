@@ -288,7 +288,7 @@ function cards() {
       this.price = price;
       this.classes = classes;
       this.parent = document.querySelector(parentSelector);
-      this.transfer = 27;
+      this.transfer = 72;
       this.changeToUAH();
     }
 
@@ -311,7 +311,7 @@ function cards() {
                 <div class="menu__item-divider"></div>
                 <div class="menu__item-price">
                     <div class="menu__item-cost">Цена:</div>
-                    <div class="menu__item-total"><span>${this.price}</span> грн/день</div>
+                    <div class="menu__item-total"><span>${this.price}</span> руб/день</div>
                 </div>
             `;
       this.parent.append(element);
@@ -319,7 +319,7 @@ function cards() {
 
   }
 
-  Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["getResource"])('http://localhost:3000/menu').then(data => {
+  Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["getResource"])('https://my-json-server.typicode.com/VladBondIt/FakeDBjson/menu').then(data => {
     data.forEach(({
       img,
       altimg,
@@ -421,7 +421,7 @@ function form(formSelector, modalTimerId) {
       // преобразовываем ответ в текст методом фетча
       // })
 
-      Object(_services_services__WEBPACK_IMPORTED_MODULE_1__["postData"])('http://localhost:3000/requests', json).then(data => {
+      Object(_services_services__WEBPACK_IMPORTED_MODULE_1__["postData"])('https://my-json-server.typicode.com/VladBondIt/FakeDBjson/requests', json).then(data => {
         console.log(data);
         showThanksModal(message.success);
         form.reset();

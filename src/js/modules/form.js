@@ -63,7 +63,7 @@ function form(formSelector, modalTimerId) {
             // Data данные которые вернет сервер после поста
             // преобразовываем ответ в текст методом фетча
             // })
-            postData('http://localhost:3000/requests', json)
+            postData('https://my-json-server.typicode.com/VladBondIt/FakeDBjson/requests', json)
                 .then(data => {
                     console.log(data);
                     showThanksModal(message.success);
